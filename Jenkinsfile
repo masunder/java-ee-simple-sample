@@ -1,26 +1,24 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'maven:3.8.1-adoptopenjdk-11' 
+            args '-v /root/.m2:/root/.m2' 
+        }
+    }
     stages {
         stage('Build') {
             steps {
-                withMaven(maven: 'mvn', jdk: 'openjdk-8') {
-                    sh "mvn clean compile"
-                }
+                sh "mvn clean compile"
             }
         }
         stage('Test') {
             steps {
-                withMaven(maven: 'mvn', jdk: 'openjdk-8') {
-                    sh 'mvn test'
-                }
+                sh 'mvn test'
             }
         }
         stage('Deploy') {
             steps {
-                withMaven(maven: 'mvn', jdk: 'openjdk-8') {
-                    mvn 'mvn install'
-                }
+                mvn 'mvn install'
             }
         }
     }
