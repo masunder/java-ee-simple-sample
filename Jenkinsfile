@@ -11,12 +11,16 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                withMaven(maven: 'mvn', jdk: 'openjdk-11') {
+                    sh 'mvn test'
+                }
             }
         }
         stage('Deploy') {
             steps {
-                mvn 'mvn install'
+                withMaven(maven: 'mvn', jdk: 'openjdk-11') {
+                    mvn 'mvn install'
+                }
             }
         }
     }
