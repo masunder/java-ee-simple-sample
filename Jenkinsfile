@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                withMaven(maven: 'mvn') {
+                withMaven(maven: 'mvn', jdk: 'openjdk-11') {
                     sh "mvn clean compile"
                 }
             }
