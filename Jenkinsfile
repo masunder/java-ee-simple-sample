@@ -4,17 +4,23 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                withMaven(globalMavenSettingsConfig: 'maven-global', maven: 'Maven 3.8.1') {
+                    sh 'mvn clean compile'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                withMaven(globalMavenSettingsConfig: 'maven-global', maven: 'Maven 3.8.1') {
+                    sh 'mvn test'
+                }
             }
         }
         stage('Deploy') {
             steps {
-                mvn 'mvn install'
+                withMaven(globalMavenSettingsConfig: 'maven-global', maven: 'Maven 3.8.1') {
+                    mvn 'mvn install'
+                }                
             }
         }
     }
