@@ -1,13 +1,13 @@
 pipeline {
     agent any
-    stages {
-        stage('Init') {            
-            stage('Test') {
-                IMAGE = readMavenPom().getArtifactId()
-                VERSION = readMavenPom().getVersion()
-                echo "IMAGE: ${IMAGE}"
-                echo "VERSION: ${VERSION}"
-              }
+    stages {               
+        stage('Test') {
+            IMAGE = readMavenPom().getArtifactId()
+            VERSION = readMavenPom().getVersion()
+            echo "IMAGE: ${IMAGE}"
+            echo "VERSION: ${VERSION}"
+          }
+        stage('Init') {     
             steps {
                 withMaven(maven: 'mvn') {
                     sh "mvn -version"
